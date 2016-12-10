@@ -4,12 +4,12 @@
  *  Created on: Dec 1, 2016
  *      Author: joaquin
  */
-
-#include "Display.h"
+#include "RpiManager.h"
 
 
 int main()
 {
-    Display display;
+    RPiManager manager();
+
 }
 
