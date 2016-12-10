@@ -15,8 +15,6 @@ Display::Display()
 {
     for(auto i = 0; i < nbDigits; i++)
         digits.push_back(Digit());
-
-
 }
 
 
@@ -51,9 +49,9 @@ void Display::enableDisplay(void)
     }
 }
 
-void Display::beginDisplayTask()
+void Display::beginDisplayTask(void)
 {
-    auto fut = std::async(enableDisplay);
+    auto fut = std::async(std::launch::async, &Display::enableDisplay, this);
 }
 
 
