@@ -9,6 +9,7 @@
 #define RPIMANAGER_H_
 
 #include "Display.h"
+#include "SerialCom.h"
 
 class RPiManager
 {
@@ -16,6 +17,8 @@ public:
     RPiManager();
 private:
     Display display;
+    SerialCom serial;
+    Stepper motor;
 };
 
 
