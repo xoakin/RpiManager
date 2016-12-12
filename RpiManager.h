@@ -10,6 +10,7 @@
 
 #include "Display.h"
 #include "SerialCom.h"
+#include "StepperMotor28BYJ48.hpp"
 
 class RPiManager
 {
@@ -18,7 +19,7 @@ public:
 private:
     Display display;
     SerialCom serial;
-    Stepper motor;
+    StepperMotor28BYJ48 motor;
 };
 
 
