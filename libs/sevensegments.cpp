@@ -4,8 +4,9 @@
  *  Created on: Mar 16, 2015
  *      Author: joaquin
  */
+#include <wiringPi.h>
 #include "sevensegments.h"
-#include "lib_gpio.h"
+
 
 static constexpr auto segmentA =      19;
 static constexpr auto segmentB =       6;
@@ -21,199 +22,180 @@ static constexpr auto enableDigit1 =  5;
 static constexpr auto enableDigit2 = 11;
 static constexpr auto enableDigit3 =  8;
 
-static const bool inDir = false;
-static const bool outDir = true;
-
-static const bool valLow = false;
-static const bool valHigh = true;
-
 void sevensegments_init()
 {
-	/*Export all gpios*/
-	lib_gpio_export(segmentA);
-	lib_gpio_export(segmentB);
-	lib_gpio_export(segmentC);
-	lib_gpio_export(segmentD);
-	lib_gpio_export(segmentE);
-	lib_gpio_export(segmentF);
-	lib_gpio_export(segmentG);
-	lib_gpio_export(segmentH);
-	lib_gpio_export(enableDigit0);
-	lib_gpio_export(enableDigit1);
-	lib_gpio_export(enableDigit2);
-	lib_gpio_export(enableDigit3);
 
 	/*Set all gpios as output*/
-	lib_gpio_set_dir(segmentA, outDir);
-	lib_gpio_set_dir(segmentB, outDir);
-	lib_gpio_set_dir(segmentC, outDir);
-	lib_gpio_set_dir(segmentD, outDir);
-	lib_gpio_set_dir(segmentE, outDir);
-	lib_gpio_set_dir(segmentF, outDir);
-	lib_gpio_set_dir(segmentG, outDir);
-	lib_gpio_set_dir(segmentH, outDir);
-	lib_gpio_set_dir(enableDigit0, outDir);
-	lib_gpio_set_dir(enableDigit1, outDir);
-	lib_gpio_set_dir(enableDigit2, outDir);
-	lib_gpio_set_dir(enableDigit3, outDir);
+	pinMode(segmentA, OUTPUT);
+	pinMode(segmentB, OUTPUT);
+	pinMode(segmentC, OUTPUT);
+	pinMode(segmentD, OUTPUT);
+	pinMode(segmentE, OUTPUT);
+	pinMode(segmentF, OUTPUT);
+	pinMode(segmentG, OUTPUT);
+	pinMode(segmentH, OUTPUT);
+	pinMode(enableDigit0, OUTPUT);
+	pinMode(enableDigit1, OUTPUT);
+	pinMode(enableDigit2, OUTPUT);
+	pinMode(enableDigit3, OUTPUT);
 
 	/*Set all gpio to LOW*/
-	lib_gpio_set_value(segmentA, valLow);
-	lib_gpio_set_value(segmentB, valLow);
-	lib_gpio_set_value(segmentC, valLow);
-	lib_gpio_set_value(segmentD, valLow);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valLow);
-	lib_gpio_set_value(segmentG, valLow);
-	lib_gpio_set_value(segmentH, valLow);
-	lib_gpio_set_value(enableDigit0, valLow);
-	lib_gpio_set_value(enableDigit1, valLow);
-	lib_gpio_set_value(enableDigit2, valLow);
-	lib_gpio_set_value(enableDigit3, valLow);
+	digitalWrite(segmentA, LOW);
+	digitalWrite(segmentB, LOW);
+	digitalWrite(segmentC, LOW);
+	digitalWrite(segmentD, LOW);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, LOW);
+	digitalWrite(segmentG, LOW);
+	digitalWrite(segmentH, LOW);
+	digitalWrite(enableDigit0, LOW);
+	digitalWrite(enableDigit1, LOW);
+	digitalWrite(enableDigit2, LOW);
+	digitalWrite(enableDigit3, LOW);
 
 	return;
 }
 
 void sevensegments_display_0(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valHigh);
-	lib_gpio_set_value(segmentE, valHigh);
-	lib_gpio_set_value(segmentF, valHigh);
-	lib_gpio_set_value(segmentG, valLow);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, HIGH);
+	digitalWrite(segmentE, HIGH);
+	digitalWrite(segmentF, HIGH);
+	digitalWrite(segmentG, LOW);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_1(void)
 {
-	lib_gpio_set_value(segmentA, valLow);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valLow);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valLow);
-	lib_gpio_set_value(segmentG, valLow);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, LOW);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, LOW);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, LOW);
+	digitalWrite(segmentG, LOW);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_2(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valLow);
-	lib_gpio_set_value(segmentD, valHigh);
-	lib_gpio_set_value(segmentE, valHigh);
-	lib_gpio_set_value(segmentF, valLow);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, LOW);
+	digitalWrite(segmentD, HIGH);
+	digitalWrite(segmentE, HIGH);
+	digitalWrite(segmentF, LOW);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_3(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valHigh);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valLow);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, HIGH);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, LOW);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_4(void)
 {
-	lib_gpio_set_value(segmentA, valLow);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valLow);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valHigh);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, LOW);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, LOW);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, HIGH);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_5(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valLow);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valHigh);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valHigh);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, LOW);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, HIGH);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, HIGH);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_6(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valLow);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valHigh);
-	lib_gpio_set_value(segmentE, valHigh);
-	lib_gpio_set_value(segmentF, valHigh);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, LOW);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, HIGH);
+	digitalWrite(segmentE, HIGH);
+	digitalWrite(segmentF, HIGH);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_7(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valLow);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valLow);
-	lib_gpio_set_value(segmentG, valLow);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, LOW);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, LOW);
+	digitalWrite(segmentG, LOW);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_8(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valHigh);
-	lib_gpio_set_value(segmentE, valHigh);
-	lib_gpio_set_value(segmentF, valHigh);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, HIGH);
+	digitalWrite(segmentE, HIGH);
+	digitalWrite(segmentF, HIGH);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_9(void)
 {
-	lib_gpio_set_value(segmentA, valHigh);
-	lib_gpio_set_value(segmentB, valHigh);
-	lib_gpio_set_value(segmentC, valHigh);
-	lib_gpio_set_value(segmentD, valLow);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valHigh);
-	lib_gpio_set_value(segmentG, valHigh);
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentA, HIGH);
+	digitalWrite(segmentB, HIGH);
+	digitalWrite(segmentC, HIGH);
+	digitalWrite(segmentD, LOW);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, HIGH);
+	digitalWrite(segmentG, HIGH);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_period(void)
 {
 
-	lib_gpio_set_value(segmentH, valHigh);
+	digitalWrite(segmentH, HIGH);
 }
 
 void sevensegments_clear(void)
 {
-	lib_gpio_set_value(segmentA, valLow);
-	lib_gpio_set_value(segmentB, valLow);
-	lib_gpio_set_value(segmentC, valLow);
-	lib_gpio_set_value(segmentD, valLow);
-	lib_gpio_set_value(segmentE, valLow);
-	lib_gpio_set_value(segmentF, valLow);
-	lib_gpio_set_value(segmentG, valLow);
+	digitalWrite(segmentA, LOW);
+	digitalWrite(segmentB, LOW);
+	digitalWrite(segmentC, LOW);
+	digitalWrite(segmentD, LOW);
+	digitalWrite(segmentE, LOW);
+	digitalWrite(segmentF, LOW);
+	digitalWrite(segmentG, LOW);
 
 }
 void sevensegments_clear_period(void)
 {
-	lib_gpio_set_value(segmentH, valLow);
+	digitalWrite(segmentH, LOW);
 }
 
 void sevensegments_display_number(unsigned char number)
@@ -260,28 +242,28 @@ void sevensegments_select_digit(unsigned char digit)
 	switch(digit)
 	{
 		case 0:
-			lib_gpio_set_value(enableDigit0,valLow);
-			lib_gpio_set_value(enableDigit1,valHigh);
-			lib_gpio_set_value(enableDigit2,valHigh);
-			lib_gpio_set_value(enableDigit3,valHigh);
+			digitalWrite(enableDigit0,LOW);
+			digitalWrite(enableDigit1,HIGH);
+			digitalWrite(enableDigit2,HIGH);
+			digitalWrite(enableDigit3,HIGH);
 			break;
 		case 1:
-			lib_gpio_set_value(enableDigit0,valHigh);
-			lib_gpio_set_value(enableDigit1,valLow);
-			lib_gpio_set_value(enableDigit2,valHigh);
-			lib_gpio_set_value(enableDigit3,valHigh);
+			digitalWrite(enableDigit0,HIGH);
+			digitalWrite(enableDigit1,LOW);
+			digitalWrite(enableDigit2,HIGH);
+			digitalWrite(enableDigit3,HIGH);
 			break;
 		case 2:
-			lib_gpio_set_value(enableDigit0,valHigh);
-			lib_gpio_set_value(enableDigit1,valHigh);
-			lib_gpio_set_value(enableDigit2,valLow);
-			lib_gpio_set_value(enableDigit3,valHigh);
+			digitalWrite(enableDigit0,HIGH);
+			digitalWrite(enableDigit1,HIGH);
+			digitalWrite(enableDigit2,LOW);
+			digitalWrite(enableDigit3,HIGH);
 			break;
 		case 3:
-			lib_gpio_set_value(enableDigit0,valHigh);
-			lib_gpio_set_value(enableDigit1,valHigh);
-			lib_gpio_set_value(enableDigit2,valHigh);
-			lib_gpio_set_value(enableDigit3,valLow);
+			digitalWrite(enableDigit0,HIGH);
+			digitalWrite(enableDigit1,HIGH);
+			digitalWrite(enableDigit2,HIGH);
+			digitalWrite(enableDigit3,LOW);
 			break;
 		default:
 			return;
