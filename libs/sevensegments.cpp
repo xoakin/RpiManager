@@ -24,7 +24,7 @@ static constexpr auto enableDigit3 =  8;
 
 void sevensegments_init()
 {
-
+    wiringPiSetupGpio();
 	/*Set all gpios as output*/
 	pinMode(segmentA, OUTPUT);
 	pinMode(segmentB, OUTPUT);
@@ -48,10 +48,10 @@ void sevensegments_init()
 	digitalWrite(segmentF, LOW);
 	digitalWrite(segmentG, LOW);
 	digitalWrite(segmentH, LOW);
-	digitalWrite(enableDigit0, LOW);
-	digitalWrite(enableDigit1, LOW);
-	digitalWrite(enableDigit2, LOW);
-	digitalWrite(enableDigit3, LOW);
+	digitalWrite(enableDigit0, HIGH);
+	digitalWrite(enableDigit1, HIGH);
+	digitalWrite(enableDigit2, HIGH);
+	digitalWrite(enableDigit3, HIGH);
 
 	return;
 }
