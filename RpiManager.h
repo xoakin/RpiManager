@@ -16,10 +16,11 @@ class RPiManager
 {
 public:
     RPiManager();
+    void refreshValue(uint16_t x);
 private:
     Display display;
-    SerialCom serial;
-    StepperMotor28BYJ48 motor;
+//    SerialCom serial;
+//    StepperMotor28BYJ48 motor;
 };
 
 
