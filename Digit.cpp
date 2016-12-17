@@ -5,7 +5,6 @@
  *      Author: joaquin
  */
 #include "Digit.h"
-#include "lib_gpio.h"
 #include "sevensegments.h"
 
 uint8_t Digit::digit = 0;
