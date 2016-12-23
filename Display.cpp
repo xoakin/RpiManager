@@ -7,6 +7,7 @@
 #include "Display.h"
 #include <unistd.h>
 #include <future>
+#include <iostream>
 
 static const uint8_t nbDigits = 4;
 
@@ -43,7 +44,7 @@ void Display::enableDisplay(void)
         {
             digits[i].enableDisplay();
             digits[i].setValue();
-            usleep(5000);
+            usleep(1000);
             //clear?
         }
     }
@@ -51,7 +52,9 @@ void Display::enableDisplay(void)
 
 void Display::beginDisplayTask(void)
 {
+    std::clog << "About to launch task\n";
     auto fut = std::async(std::launch::async, &Display::enableDisplay, this);
+    std::clog << "Task running \n";
 }
 
 
