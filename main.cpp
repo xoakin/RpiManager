@@ -6,17 +6,16 @@
  */
 #include "RpiManager.h"
 #include <iostream>
+#include <future>
 
 int main()
 {
-    std::cout << "Hello world!" << std::endl;
     RPiManager manager;
-    std::cout << "Hola mundo!" << std::endl;
+    auto fut = std::async(std::launch::async, &RPiManager::enableDisplay, &manager);
     while(1)
     {
         uint16_t x;
         std::cin >> x;
-        std::cout << (x+1);
         manager.refreshValue(x);
     }
 }
