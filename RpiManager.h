@@ -17,6 +17,7 @@ class RPiManager
 public:
     RPiManager();
     void refreshValue(uint16_t x);
+    void enableDisplay();
 private:
     Display display;
 //    SerialCom serial;
