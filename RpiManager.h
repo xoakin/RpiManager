@@ -12,14 +12,18 @@
 #include "SerialCom.h"
 #include "StepperMotor28BYJ48.hpp"
 
+template<typename T>
 class RPiManager
 {
 public:
-    RPiManager();
-    void refreshValue(uint16_t x);
-    void enableDisplay();
+    RPiManager():display(){
+    	display.displayUnsignedValue(0);
+    	std::clog << "Leaving constructor\n";
+    }
+    void refreshValue(uint16_t x){ display.displayUnsignedValue(x); }
+    void enableDisplay(){ display.beginDisplayTask();}
 private:
-    Display display;
+    Display<T> display;
 //    SerialCom serial;
 //    StepperMotor28BYJ48 motor;
 };

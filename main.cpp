@@ -7,11 +7,15 @@
 #include "RpiManager.h"
 #include <iostream>
 #include <future>
+#include "gpioPolicies.h"
+
 
 int main()
 {
-    RPiManager manager;
-    auto fut = std::async(std::launch::async, &RPiManager::enableDisplay, &manager);
+	typedef RPiManager<RPi1Policy> Manager;
+    Manager manager;
+    auto fut = std::async(std::launch::async, &Manager::enableDisplay, &manager);
+    manager.enableDisplay();
     while(1)
     {
         uint16_t x;
