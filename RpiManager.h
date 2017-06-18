@@ -21,7 +21,7 @@ public:
     	std::clog << "Leaving constructor\n";
     }
     void refreshValue(uint16_t x){ display.displayUnsignedValue(x); }
-    void enableDisplay(){ display.beginDisplayTask();}
+    void enableDisplay(){ display.displayTask();}
 private:
     Display<T> display;
 //    SerialCom serial;

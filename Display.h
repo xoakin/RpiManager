@@ -20,7 +20,7 @@ using namespace std::chrono_literals;
 template<typename T>
 class Display {
 private:
-    std::array<uint8_t, 4> valueToDisplay;
+    std::array<uint8_t, nbDigits> valueToDisplay;
 
 public:
     Display(){
@@ -36,13 +36,13 @@ public:
     void displaySignedValue(int16_t value){
 
     }
-    template<typename P>
-    void displayTask(void){
+
+    void displayTask(){
     	std::clog<< "In display task, about to get to while\n";
     	while(1){
     		for(auto i = 0; i < nbDigits; i++){
-    			SevenSegments<P>::selectDigit(i);
-    			SevenSegments<P>::displayNumber(valueToDisplay[i]);
+    			SevenSegments<T>::selectDigit(i);
+    			SevenSegments<T>::displayNumber(valueToDisplay[i]);
     			std::this_thread::sleep_for(1ms);
     		}
     	}

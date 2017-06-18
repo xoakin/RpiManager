@@ -47,7 +47,7 @@ class SevenSegments: GpioPolicy{
 public:
 
 	static void init() {
-		numbers.emplace_back(std::move(zero.data()));
+		numbers.emplace_back(zero.data());
 		numbers.emplace_back(one.data());
 		numbers.emplace_back(two.data());
 		numbers.emplace_back(three.data());
@@ -91,7 +91,7 @@ public:
 			throw std::out_of_range("0<=Number<10");
 
 		for(auto i = 0; i < segmentGpios().size(); i++)
-			digitalWrite(segmentGpios()[i], SevenSegments::numbers[number].get()[i]);
+			digitalWrite(segmentGpios()[i], numbers[number].get()[i]);
 	}
 
 	static void displayPeriod(void) {

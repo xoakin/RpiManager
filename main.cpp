@@ -15,7 +15,6 @@ int main()
 	typedef RPiManager<RPi1Policy> Manager;
     Manager manager;
     auto fut = std::async(std::launch::async, &Manager::enableDisplay, &manager);
-    manager.enableDisplay();
     while(1)
     {
         uint16_t x;
