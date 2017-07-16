@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <cstdint>
+#include "gpio.hpp"
 
 class RPi3Policy{
 
@@ -47,6 +48,7 @@ class RPi1Policy{
 	static constexpr auto segmentE =      11;
 	static constexpr auto segmentF =      12;
 	static constexpr auto segmentG =       4;
+	static constexpr auto segmentH =  	   6;
 
 	static constexpr auto enableDigit0 = 14;
 	static constexpr auto enableDigit1 =  2;
@@ -54,16 +56,18 @@ class RPi1Policy{
 	static constexpr auto enableDigit3 =  1;
 
 protected:
-	static constexpr auto period   =       6;
-	auto static segmentGpios() noexcept{
-		std::vector<uint8_t> segmentGpios {segmentA, segmentB, segmentC, segmentD, segmentE, segmentF, segmentG};
-		return std::move(segmentGpios);
-	}
-	auto static enableGpios() noexcept{
-		std::vector<uint8_t> enableGpios {enableDigit0, enableDigit1, enableDigit2, enableDigit3};
-		return std::move(enableGpios);
-	}
+	static std::vector<Gpio> segmentVector;
+	static std::vector<Gpio> enableVector;
+
+	static auto segmentGpios() noexcept{ return segmentVector;}
+	static auto enableGpios() noexcept{ return enableVector; };
+
 };
 
+std::vector<Gpio> RPi1Policy::segmentVector = {Gpio(segmentA), Gpio(segmentB), Gpio(segmentC),
+		Gpio(segmentD), Gpio(segmentE), Gpio(segmentF),
+		Gpio(segmentG), Gpio(segmentH)};
 
+std::vector<Gpio> RPi1Policy::enableVector = {Gpio(enableDigit0), Gpio(enableDigit1),
+		   Gpio(enableDigit2), Gpio(enableDigit3)};
 #endif /* GPIOPOLICIES_H_ */
