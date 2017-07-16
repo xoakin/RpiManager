@@ -43,13 +43,11 @@ public:
 		for(auto& gpio : GpioPolicy::segmentVector){
 			gpio.changeDirection(OUTPUT);
 			gpio.clear();
-			std::this_thread::sleep_for(100ms);
 		}
 
 	    for(auto& gpio : GpioPolicy::enableVector){
 	    	gpio.changeDirection(OUTPUT);
 	    	gpio.set();
-	    	std::this_thread::sleep_for(100ms);
 	    }
 
 	}
