@@ -39,8 +39,5 @@ void Gpio::set(){
 }
 
 void Gpio::write(uint8_t val){
-	if(val)
-		set();
-	else
-		clear();
+	val? set():clear();
 }

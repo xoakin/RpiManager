@@ -16,6 +16,7 @@ int main()
 	typedef RPiManager<RPi1Policy> Manager;
 	Manager manager;
     auto fut = reallyAsync([&manager](){manager.enableDisplay();});
+    manager.motorDemo();
     while(1)
     {
         uint16_t x;

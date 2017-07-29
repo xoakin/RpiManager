@@ -31,73 +31,68 @@ class SevenSegments: GpioPolicy{
 private:
 
 
-	static std::array<std::array<uint8_t, nbSegments>, 10> numbers;
+	const std::array<std::array<uint8_t, nbSegments>, 10> numbers = {{
+																	{HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, LOW},
+																	{LOW, HIGH, HIGH, LOW, LOW, LOW, LOW},
+																	{HIGH, HIGH, LOW, HIGH, HIGH, LOW, HIGH},
+																	{HIGH, HIGH, HIGH, HIGH, LOW, LOW, HIGH},
+																	{LOW, HIGH, HIGH, LOW, LOW, HIGH, HIGH},
+																	{HIGH, LOW, HIGH, HIGH, LOW, HIGH, HIGH},
+																	{HIGH, LOW, HIGH, HIGH, HIGH, HIGH, HIGH},
+																	{HIGH, HIGH, HIGH, LOW, LOW, LOW, LOW},
+																	{HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH},
+																	{HIGH, HIGH, HIGH, LOW, LOW, HIGH, HIGH} }};
 
-	static std::array<std::array<uint8_t, nbDigits>, nbDigits> enables;
+
+	const std::array<std::array<uint8_t, nbDigits>, nbDigits> digits = {{
+																		{LOW, HIGH, HIGH, HIGH},
+																		{HIGH, LOW, HIGH, HIGH},
+																		{HIGH, HIGH, LOW, HIGH},
+																		{HIGH, HIGH, HIGH, LOW}	}};
 
 
 public:
-	static void init() {
+	SevenSegments() {
 		wiringPiSetup();
 
-		for(auto& gpio : GpioPolicy::segmentVector){
+		for(auto& gpio : segmentGpios()){
 			gpio.changeDirection(OUTPUT);
 			gpio.clear();
 		}
 
-	    for(auto& gpio : GpioPolicy::enableVector){
+	    for(auto& gpio : enableGpios()){
 	    	gpio.changeDirection(OUTPUT);
 	    	gpio.set();
 	    }
 
 	}
 
-	static void selectDigit(const uint8_t digit) {
+	void selectDigit(const uint8_t digit) {
 		if(digit >= nbDigits)
 			throw std::out_of_range("Digit >= 4");
 
-		for(size_t i = 0; i < GpioPolicy::enableGpios().size(); i++)
-			GpioPolicy::enableVector[i].write(enables[digit][i]);
+		for(size_t i = 0; i < enableGpios().size(); i++)
+			enableGpios()[i].write(digits[digit][i]);
 
 	}
 
-	static void displayNumber(const uint8_t number) {
+	void displayNumber(const uint8_t number) {
 		if(number < 0 || number > 9)
 			throw std::out_of_range("0<=Number<10");
 
-		for(size_t i = 0; i < GpioPolicy::segmentGpios().size() - 1 ; i++)
-			GpioPolicy::segmentVector[i].write(numbers[number][i]);
+		for(size_t i = 0; i < segmentGpios().size() - 1 ; i++)
+			segmentGpios()[i].write(numbers[number][i]);
 	}
 
-	static void displayPeriod(void) { GpioPolicy::segmentGpios().back().set();}
+	void displayPeriod(void) { segmentGpios().back().set();}
 
-	static void clearPeriod(void) { GpioPolicy::segmentGpios().back().clear();}
+	void clearPeriod(void) { segmentGpios().back().clear();}
 
-	static void clear(void) {
-		for(auto& gpio : GpioPolicy::segmentGpios())
+	void clear(void) {
+		for(auto& gpio : segmentGpios())
 			gpio.clear();
 	}
 };
-
-template<typename T>
-std::array<std::array<uint8_t, nbSegments>, 10> SevenSegments<T>::numbers = {{
-															{HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, LOW},
-															{LOW, HIGH, HIGH, LOW, LOW, LOW, LOW},
-															{HIGH, HIGH, LOW, HIGH, HIGH, LOW, HIGH},
-															{HIGH, HIGH, HIGH, HIGH, LOW, LOW, HIGH},
-															{LOW, HIGH, HIGH, LOW, LOW, HIGH, HIGH},
-															{HIGH, LOW, HIGH, HIGH, LOW, HIGH, HIGH},
-															{HIGH, LOW, HIGH, HIGH, HIGH, HIGH, HIGH},
-															{HIGH, HIGH, HIGH, LOW, LOW, LOW, LOW},
-															{HIGH, HIGH, HIGH, HIGH, HIGH, HIGH, HIGH},
-															{HIGH, HIGH, HIGH, LOW, LOW, HIGH, HIGH} }};
-
-template<typename T>
-std::array<std::array<uint8_t, nbDigits>, nbDigits> SevenSegments<T>::enables = {{
-															{LOW, HIGH, HIGH, HIGH},
-															{HIGH, LOW, HIGH, HIGH},
-															{HIGH, HIGH, LOW, HIGH},
-															{HIGH, HIGH, HIGH, LOW}	}};
 
 
 

@@ -21,11 +21,10 @@ template<typename T>
 class Display {
 private:
     std::array<uint8_t, nbDigits> valueToDisplay;
+    SevenSegments<T> sevenSegments;
 
 public:
-    Display(){
-    	SevenSegments<T>::init();
-    }
+    Display():sevenSegments(){}
 
     void displayUnsignedValue(uint16_t value){
     	valueToDisplay[0] = (value/1000);
@@ -41,8 +40,8 @@ public:
     	std::clog<< "In display task, about to get to while\n";
     	while(1){
     		for(auto i = 0; i < nbDigits; i++){
-    			SevenSegments<T>::selectDigit(i);
-    			SevenSegments<T>::displayNumber(valueToDisplay[i]);
+    			sevenSegments.selectDigit(i);
+    			sevenSegments.displayNumber(valueToDisplay[i]);
     			std::this_thread::sleep_for(1ms);
     		}
     	}

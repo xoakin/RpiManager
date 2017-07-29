@@ -14,60 +14,78 @@
 
 class RPi3Policy{
 
-	static constexpr auto segmentA =      19;
-	static constexpr auto segmentB =       6;
-	static constexpr auto segmentC =      12;
-	static constexpr auto segmentD =      20;
-	static constexpr auto segmentE =      21;
-	static constexpr auto segmentF =      13;
-	static constexpr auto segmentG =       7;
+	const uint8_t segmentA =      19;
+	const uint8_t segmentB =       6;
+	const uint8_t segmentC =      12;
+	const uint8_t segmentD =      20;
+	const uint8_t segmentE =      21;
+	const uint8_t segmentF =      13;
+	const uint8_t segmentG =       7;
+	const uint8_t segmentH = 	  16;
 
-	static constexpr auto enableDigit0 = 26;
-	static constexpr auto enableDigit1 =  5;
-	static constexpr auto enableDigit2 = 11;
-	static constexpr auto enableDigit3 =  8;
+	const uint8_t enableDigit0 = 26;
+	const uint8_t enableDigit1 =  5;
+	const uint8_t enableDigit2 = 11;
+	const uint8_t enableDigit3 =  8;
+
+	const uint8_t motorIn1 = 0;
+	const uint8_t motorIn2 = 0;
+	const uint8_t motorIn3 = 0;
+	const uint8_t motorIn4 = 0;
+
+	std::vector<Gpio> segmentVector = { Gpio(segmentA), Gpio(segmentB), Gpio(segmentC),
+										Gpio(segmentD), Gpio(segmentE), Gpio(segmentF),
+										Gpio(segmentG), Gpio(segmentH)};
+
+	std::vector<Gpio> enableVector  = { Gpio(enableDigit0), Gpio(enableDigit1),
+			   	   	   	   	   	   	   	Gpio(enableDigit2), Gpio(enableDigit3)};
+
+	std::vector<Gpio> motorVector = {Gpio(motorIn1), Gpio(motorIn2), Gpio(motorIn3), Gpio(motorIn4)};
 
 protected:
-	static constexpr auto period   =      16;
-	auto static segmentGpios() noexcept{
-		std::vector<uint8_t> segmentGpios {segmentA, segmentB, segmentC, segmentD, segmentE, segmentF, segmentG};
-		return std::move(segmentGpios);
-	}
-	auto static enableGpios() noexcept{
-		std::vector<uint8_t> enableGpios {enableDigit0, enableDigit1, enableDigit2, enableDigit3};
-		return std::move(enableGpios);
-	}
+
+	auto& segmentGpios() noexcept{ return segmentVector;}
+	auto& enableGpios()  noexcept{ return enableVector; };
+	auto& motorGpios()  noexcept {return motorVector; };
 };
 
 class RPi1Policy{
 
-	static constexpr auto segmentA =      13;
-	static constexpr auto segmentB =       3;
-	static constexpr auto segmentC =       5;
-	static constexpr auto segmentD =      10;
-	static constexpr auto segmentE =      11;
-	static constexpr auto segmentF =      12;
-	static constexpr auto segmentG =       4;
-	static constexpr auto segmentH =  	   6;
+	 const uint8_t segmentA =      13;
+	 const uint8_t segmentB =       3;
+	 const uint8_t segmentC =       5;
+	 const uint8_t segmentD =      10;
+	 const uint8_t segmentE =      11;
+	 const uint8_t segmentF =      12;
+	 const uint8_t segmentG =       4;
+	 const uint8_t segmentH =  	 	6;
 
-	static constexpr auto enableDigit0 = 14;
-	static constexpr auto enableDigit1 =  2;
-	static constexpr auto enableDigit2 =  0;
-	static constexpr auto enableDigit3 =  1;
+	 const uint8_t enableDigit0 = 14;
+	 const uint8_t enableDigit1 =  2;
+	 const uint8_t enableDigit2 =  0;
+	 const uint8_t enableDigit3 =  1;
+
+	 const uint8_t motorIn1 = 8;
+	 const uint8_t motorIn2 = 9;
+	 const uint8_t motorIn3 = 15;
+	 const uint8_t motorIn4 = 16;
+
+	std::vector<Gpio> segmentVector = { Gpio(segmentA), Gpio(segmentB), Gpio(segmentC),
+										Gpio(segmentD), Gpio(segmentE), Gpio(segmentF),
+										Gpio(segmentG), Gpio(segmentH)};
+
+	std::vector<Gpio> enableVector  = { Gpio(enableDigit0), Gpio(enableDigit1),
+			   	   	   	   	   	   	   	Gpio(enableDigit2), Gpio(enableDigit3)};
+
+	std::vector<Gpio> motorVector = {Gpio(motorIn1), Gpio(motorIn2), Gpio(motorIn3), Gpio(motorIn4)};
 
 protected:
-	static std::vector<Gpio> segmentVector;
-	static std::vector<Gpio> enableVector;
 
-	static auto segmentGpios() noexcept{ return segmentVector;}
-	static auto enableGpios() noexcept{ return enableVector; };
+	auto& segmentGpios()  noexcept{ return segmentVector;}
+	auto& enableGpios()   noexcept{ return enableVector; };
+	auto& motorGpios()  noexcept {return motorVector; };
 
 };
 
-std::vector<Gpio> RPi1Policy::segmentVector = {Gpio(segmentA), Gpio(segmentB), Gpio(segmentC),
-		Gpio(segmentD), Gpio(segmentE), Gpio(segmentF),
-		Gpio(segmentG), Gpio(segmentH)};
 
-std::vector<Gpio> RPi1Policy::enableVector = {Gpio(enableDigit0), Gpio(enableDigit1),
-		   Gpio(enableDigit2), Gpio(enableDigit3)};
 #endif /* GPIOPOLICIES_H_ */
