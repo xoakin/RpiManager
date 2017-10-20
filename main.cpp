@@ -15,14 +15,19 @@ int main()
 {
 	typedef RPiManager<RPi1Policy> Manager;
 	Manager manager;
-    auto fut = reallyAsync([&manager](){manager.enableDisplay();});
-    manager.motorDemo();
+
     while(1)
     {
+		manager.clockwiseTest();
         uint16_t x;
         std::cin >> x;
-        manager.refreshValue(x);
+        manager.getMotor().stop();
+        std::cin >> x;
+        manager.getMotor().startCounterClockwise();
+        std::cin >> x;
+        manager.getMotor().stop();
+        std::cin >> x;
     }
-	std::cout << "Hola a todo el mundo\n";
+
 }
 
